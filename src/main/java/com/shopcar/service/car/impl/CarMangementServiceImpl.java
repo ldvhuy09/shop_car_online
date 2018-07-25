@@ -65,6 +65,6 @@ public class CarMangementServiceImpl implements CarMangementService {
     public Page<CarGeneralInfor> getByBrand(String brandName, Pageable pageable) {
         BrandCar brandCar = brandCarRepository.findByName(brandName);
         Page<Car> carsPage = carRepository.findByBrand(brandCar, pageable);
-        return null;
+        return carsPage.map(this::getGeneralInfor);
     }
 }
