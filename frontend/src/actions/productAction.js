@@ -12,8 +12,8 @@ import {
 } from '../constants/action';
 import { 
   PAGE_DEFAULT,
-  SIZE_DEFAULT,
-  SIZE_DEFAULT_SAME_CATEGORY 
+  SIZE_PER_PAGE_DEFAULT_SAME_CATEGORY,
+  SIZE_PER_PAGE_DEFAULT,
 } from '../constants/api';
 import sendToStore from './doAction';
 import ProductApi from '../api/ProductApi';
@@ -37,35 +37,35 @@ const ProductAction = {
 			);
 		}
   },
-  fetchSameTypeCars: (value, idCar) => {
+  fetchSameTypeCars: (value, exceptId) => {
     return (dispatch) => {
       sendToStore(dispatch, 
         REQUEST_SAME_TYPE_CARS,
         RECEIVE_SAME_TYPE_CARS,
-        ProductApi.fetchBy('type', value, SIZE_DEFAULT_SAME_CATEGORY, idCar)
+        ProductApi.fetchBy('type', value, SIZE_PER_PAGE_DEFAULT_SAME_CATEGORY, PAGE_DEFAULT, exceptId)
       );
     }
   },
 
-  fetchSameBrandCars: (value, idCar) => {
+  fetchSameBrandCars: (value, exceptId) => {
     return (dispatch) => {
       sendToStore(dispatch, 
         REQUEST_SAME_BRAND_CARS,
         RECEIVE_SAME_BRAND_CARS,
-        ProductApi.fetchBy('brand', value, SIZE_DEFAULT_SAME_CATEGORY, idCar)
+        ProductApi.fetchBy('brand', value, SIZE_PER_PAGE_DEFAULT_SAME_CATEGORY, PAGE_DEFAULT, exceptId)
       );
     }
   },
 
-  fetchGalleryCar: (field, value, size = SIZE_DEFAULT, page = PAGE_DEFAULT) => {
+  fetchGalleryCar: (field, value, size = SIZE_PER_PAGE_DEFAULT, page = PAGE_DEFAULT) => {
     return (dispach) => {
       sendToStore(dispatch,
         REQUEST_GALLERY_CAR,
         RECEIVE_GALLERY_CAR,
-        ProductApi.fetchBy(field, value, size)
+        ProductApi.fetchBy(field, value, size, page)
         )
     }
   }
-}
+};
 
 export default ProductAction;

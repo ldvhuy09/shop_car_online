@@ -1,30 +1,28 @@
 import { SERVER_BASE_URL, API_VER } from '../constants/config';
 import {fetchApi} from './utils';
 
-var queryFetchTop = (field, size = 8, order='DESC') => {
-  return `${SERVER_BASE_URL}/${API_VER}/cars?size=${size}&sort=${field},${order}`;
-}
+const BASE_URL_API = `${SERVER_BASE_URL}/${API_VER}`;
 
-var queryFetchOne = (id) => {
-  return `${SERVER_BASE_URL}/${API_VER}/cars/${id}`
-}
+const apiFetchTop = (field, size = 8, order = 'DESC') =>
+	`${BASE_URL_API}/cars?size=${size}&sort=${field},${order}`;
 
-var queryFetchBy = (field, value, size, id = 0) => {
-  return `${SERVER_BASE_URL}/${API_VER}/cars/search?size=${size}&search=${field}:${value},id!${id}`;
-}
+const apiFetchOne = (id) => `${BASE_URL_API}/cars/${id}`;
+
+const apiFetchBy = (field, value, sizePerPage, page, exceptId) =>
+	`${BASE_URL_API}/cars/search?search=${field}:${value},id!${exceptId}&size=${sizePerPage}&page=${page}`;
 
 const ProductApi = {
 	fetchTops: () => {
 		return new Promise((resolve, reject) => {
-			var data = {};
+			let data = {};
 
-			var fetchs = [
-				fetchApi(queryFetchTop("numOfViews")),
-				fetchApi(queryFetchTop("numOfSales")),
-        fetchApi(queryFetchTop("storeDate"))
-      ]
+			let fetches = [
+				fetchApi(apiFetchTop("numOfViews")),
+				fetchApi(apiFetchTop("numOfSales")),
+        fetchApi(apiFetchTop("storeDate"))
+      ];
 
-			Promise.all(fetchs).then(responses => {
+			Promise.all(fetches).then(responses => {
 				data.topSellerCars = responses[0].content;
 				data.topViewCars = responses[1].content;
 				data.topNewCars = responses[2].content;
@@ -35,28 +33,28 @@ const ProductApi = {
 
 	fetchOne: (idCar) => {
 		return new Promise((resolve, reject) => {
-			var data = {}
+			let data = {};
 
-			fetchApi(queryFetchOne(idCar)).then(response => {
+			fetchApi(apiFetchTop(idCar)).then(response => {
 				data.car = response;
 				resolve(data);
 			}, error => {reject(error)});
 		})
   },
   
-  fetchBy: (field, value, size = 8, idCar = 0) => {
+  fetchBy: (field, value, sizePerPage = 8, page = 1, exceptId = 0) => {
     return new Promise((resolve, reject) => {
-      var data = {
+      let data = {
         cars: []
-      }
+      };
       
-      fetchApi(queryFetchBy(field, value, size, idCar))
+      fetchApi(apiFetchTop(field, value, sizePerPage, page, exceptId))
       .then(response => {
         data.cars = response.content;
         resolve(data);
       }, error => {reject(error)});
     })
   }
-}
+};
 
 export default ProductApi;
