@@ -1,4 +1,5 @@
 src/main/resources/static
 src/main/resources/templates
+frontend/node_modules
 .idea
 target

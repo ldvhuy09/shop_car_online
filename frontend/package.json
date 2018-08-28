@@ -1,0 +1,25 @@
+{
+  "name": "frontend-shoppingcar",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "mdbreact": "^4.6.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-number-format": "^3.5.1",
+    "react-numeric-input": "^2.2.3",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.4.0-alpha.1",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "validator": "^10.6.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

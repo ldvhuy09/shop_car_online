@@ -1,5 +1,7 @@
 package com.shopcar.model;
 
+import com.shopcar.configuration.ConfigProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -39,7 +41,7 @@ public class ImageCar {
     }
 
     public String getFileName() {
-        return String.format("%d_%d.%s", id, car.getId(), extension);
+        return String.format("%s%d_%d.%s", ConfigProperties.getHostImage(), id, car.getId(), extension);
     }
 
     public String toString() {

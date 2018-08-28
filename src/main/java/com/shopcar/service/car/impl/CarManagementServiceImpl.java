@@ -1,26 +1,25 @@
 package com.shopcar.service.car.impl;
 
 
-import com.shopcar.model.BrandCar;
 import com.shopcar.model.Car;
 import com.shopcar.model.CarInfor.CarDetailInfor;
 import com.shopcar.model.CarInfor.CarGeneralInfor;
-import com.shopcar.model.TypeCar;
 import com.shopcar.repository.BrandCarRepository;
 import com.shopcar.repository.CarRepository;
 import com.shopcar.repository.TypeCarRepository;
-import com.shopcar.service.car.CarMangementService;
+import com.shopcar.service.car.CarManagementService;
+import com.shopcar.specification.CarSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
-public class CarMangementServiceImpl implements CarMangementService {
+public class CarManagementServiceImpl implements CarManagementService {
     @Autowired
     CarRepository carRepository;
 
@@ -55,16 +54,16 @@ public class CarMangementServiceImpl implements CarMangementService {
     }
 
     @Override
-    public Page<CarGeneralInfor> getByType(String typeName, Pageable pageable) {
-        TypeCar typeCar = typeCarRepository.findByName(typeName);
-        Page<Car> carsPage = carRepository.findByType(typeCar, pageable);
-        return carsPage.map(this::getGeneralInfor);
-    }
+    public Page<CarGeneralInfor> search(String search, Pageable pageable) {
+        CarSpecificationBuilder builder = new CarSpecificationBuilder();
+        Pattern pattern = Pattern.compile("(\\w+?)(:|!|>|<)(\\w+-\\w+|\\w+\\w?),");
+        Matcher matcher = pattern.matcher(search + ",");
+        while(matcher.find()) {
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+        }
 
-    @Override
-    public Page<CarGeneralInfor> getByBrand(String brandName, Pageable pageable) {
-        BrandCar brandCar = brandCarRepository.findByName(brandName);
-        Page<Car> carsPage = carRepository.findByBrand(brandCar, pageable);
-        return carsPage.map(this::getGeneralInfor);
+        Specification<Car> spec = builder.build();
+        Page<Car> cars = carRepository.findAll(spec, pageable);
+        return cars.map(this::getGeneralInfor);
     }
 }

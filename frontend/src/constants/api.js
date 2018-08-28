@@ -1,0 +1,5 @@
+module.exports = {
+  SIZE_DEFAULT_SAME_CATEGORY: 4,
+  SIZE_DEFAULT: 9,
+  PAGE_DEFAULT: 1
+}

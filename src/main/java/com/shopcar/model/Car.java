@@ -1,6 +1,8 @@
 package com.shopcar.model;
 
 
+import com.shopcar.configuration.ConfigProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +18,7 @@ public class Car {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private TypeCar type;
 
     @OneToOne(targetEntity = BrandCar.class

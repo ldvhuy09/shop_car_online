@@ -8,5 +8,5 @@ public interface TypeCarService {
     List<TypeCar> findAll();
     TypeCar findById(long id);
     void addTypeCar(String name, String description);
-
+    TypeCar findByName(String name);
 }

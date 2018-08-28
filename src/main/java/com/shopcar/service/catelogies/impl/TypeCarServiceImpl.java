@@ -32,4 +32,9 @@ public class TypeCarServiceImpl implements TypeCarService {
 
         typeCarRepository.save(newType);
     }
+
+    @Override
+    public TypeCar findByName(String name) {
+        return typeCarRepository.findByName(name);
+    }
 }
