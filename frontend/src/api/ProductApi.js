@@ -35,7 +35,7 @@ const ProductApi = {
 		return new Promise((resolve, reject) => {
 			let data = {};
 
-			fetchApi(apiFetchTop(idCar)).then(response => {
+			fetchApi(apiFetchOne(idCar)).then(response => {
 				data.car = response;
 				resolve(data);
 			}, error => {reject(error)});
@@ -45,12 +45,16 @@ const ProductApi = {
   fetchBy: (field, value, sizePerPage = 8, page = 1, exceptId = 0) => {
     return new Promise((resolve, reject) => {
       let data = {
-        cars: []
+        cars: [],
+	      totalPages: 0,
+				page: 0,
       };
       
-      fetchApi(apiFetchTop(field, value, sizePerPage, page, exceptId))
+      fetchApi(apiFetchBy(field, value, sizePerPage, page, exceptId))
       .then(response => {
         data.cars = response.content;
+        data.totalPages = response.totalPages;
+        data.page = 1 + response.number;
         resolve(data);
       }, error => {reject(error)});
     })

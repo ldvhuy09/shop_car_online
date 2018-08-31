@@ -6,22 +6,23 @@ export default class CustomMenu extends Component {
     super(props);
   }
 
+  listItems(items, category) {
+  	return items.map(item => {
+  		let isActive = false;
+  		if (item.name === this.props.activedItem)
+  			isActive = true;
+  		return (
+			  <ListGroupItem href={'/cars/' + category + '/' + item.name} active={isActive} hover key={item.id}>
+				  - {item.name}
+			  </ListGroupItem>
+		  )
+	  })
+  }
+
 	render() {
-    let listTypes, listBrands;
-    if (this.props.menu.types) {
-      listTypes = this.props.menu.types.map(type => (
-                <ListGroupItem href="#" hover key={type.id}>
-                  - {type.name}
-                </ListGroupItem>  
-              ))
-    }
-    if (this.props.menu.brands) {
-      listBrands = this.props.menu.brands.map(brand => (
-                <ListGroupItem href="#" hover key={brand.id}>
-                  - {brand.name}
-                </ListGroupItem>  
-              ))
-    } 
+    let listTypes = this.props.menu.types ? this.listItems(this.props.menu.types, 'type') : [];
+		let listBrands = this.props.menu.brands ? this.listItems(this.props.menu.brands, 'brand') : [];
+
 		return (
 			<div>
 				<ListGroup id='menu-categories'>

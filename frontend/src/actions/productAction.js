@@ -12,8 +12,8 @@ import {
 } from '../constants/action';
 import { 
   PAGE_DEFAULT,
-  SIZE_PER_PAGE_DEFAULT_SAME_CATEGORY,
-  SIZE_PER_PAGE_DEFAULT,
+	SIZE_PER_PAGE_DEFAULT,
+	SIZE_PER_PAGE_DEFAULT_SAME_CATEGORY,
 } from '../constants/api';
 import sendToStore from './doAction';
 import ProductApi from '../api/ProductApi';
@@ -58,7 +58,7 @@ const ProductAction = {
   },
 
   fetchGalleryCar: (field, value, size = SIZE_PER_PAGE_DEFAULT, page = PAGE_DEFAULT) => {
-    return (dispach) => {
+    return (dispatch) => {
       sendToStore(dispatch,
         REQUEST_GALLERY_CAR,
         RECEIVE_GALLERY_CAR,

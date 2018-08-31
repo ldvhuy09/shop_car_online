@@ -37,21 +37,21 @@ class Home extends Component {
                 <ListProduct 
                   cars={this.props.topViewCars}
                   title="Top xem nhiều"
-                  fetchDetail={this.props.fetchDetail}
+                  colSizeLg="3"
                 />
               </div>
               <div className='row'>
                 <ListProduct
                   cars={this.props.topSellerCars}
                   title="Top bán nhiều"
-                  fetchDetail={this.props.fetchDetail}
+                  colSizeLg="3"
                 />
               </div>
               <div className='row'>
                 <ListProduct
                   cars={this.props.topNewCars}
                   title="Top mới"
-                  fetchDetail={this.props.fetchDetail}
+                  colSizeLg="3"
                 />
               </div>
             </div>

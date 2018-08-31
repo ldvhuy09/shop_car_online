@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ListProduct from '../../components/list-product';
 import DetailInforProduct from './components/detailInfor';
+import CustomMenu from '../../components/menu';
 import ProductAction from '../../actions/productAction';
+import MenuAction from "../../actions/menuAction";
+
 
 class DetailCar extends Component {
   constructor(props) {
@@ -10,8 +13,9 @@ class DetailCar extends Component {
   }
 
   componentWillMount() {
-    var idCar = this.props.match.params.id;
+    let idCar = this.props.match.params.id;
     this.props.fetchDetail(idCar);
+    this.props.fetchMenu();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -23,6 +27,7 @@ class DetailCar extends Component {
   }
 
   componentWillUpdate(nextProps) {
+	  window.scrollTo(0, 0);
     if (this.props.match.params.id !== nextProps.match.params.id) {
       this.props.fetchDetail(nextProps.match.params.id);
     }
@@ -38,24 +43,29 @@ class DetailCar extends Component {
 			<div className='main-body'>
         <div className='container'>
           <div className='row'>
-            <DetailInforProduct car={this.props.car}/>
-          </div>
-          <main>
-            <div className='container'>
-              <div className='row'>
-                <ListProduct 
-                  cars={sameTypeCars}
-                  title="Cùng loại xe"
-                />
-              </div>
-              <div className='row'>
-                <ListProduct 
-                  cars={sameBrandCars}
-                  title="Cùng thương hiệu"
-                />
-              </div>
+            <div className='col-lg-3'>
+              <CustomMenu menu={this.props.menu}/>
             </div>
-          </main>
+            <div className='col-lg-9'>
+	            <div className='row'>
+		            <DetailInforProduct car={this.props.car}/>
+	            </div>
+	            <div className='row'>
+		            <ListProduct
+			            cars={sameTypeCars}
+			            title="Cùng loại xe"
+                  colSizeLg="4"
+		            />
+	            </div>
+	            <div className='row'>
+		            <ListProduct
+			            cars={sameBrandCars}
+			            title="Cùng thương hiệu"
+			            colSizeLg="4"
+		            />
+	            </div>
+            </div>
+          </div>
         </div>
       </div>
 		);
@@ -64,16 +74,17 @@ class DetailCar extends Component {
 
 
 const mapStateToProp = (state) => ({
-   sameTypeCars: state.DetailCarReducer.sameTypeCars,
-   sameBrandCars: state.DetailCarReducer.sameBrandCars,
-   car: state.DetailCarReducer.car,
+  sameTypeCars: state.DetailCarReducer.sameTypeCars,
+  sameBrandCars: state.DetailCarReducer.sameBrandCars,
+  menu: state.HomeReducer.menu,
+  car: state.DetailCarReducer.car,
 });
 
 const mapDispatchToProp = dispatch => ({
   fetchSameTypeCars: (value, idCar) => dispatch(ProductAction.fetchSameTypeCars(value, idCar)),
   fetchSameBrandCars: (value, idCar) => dispatch(ProductAction.fetchSameBrandCars(value, idCar)),
   fetchDetail: (idCar) => dispatch(ProductAction.fetchDetail(idCar)),
-
-})
+  fetchMenu: () => dispatch(MenuAction.fetchMenu()),
+});
 
 export default connect(mapStateToProp, mapDispatchToProp)(DetailCar);

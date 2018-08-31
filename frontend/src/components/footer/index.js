@@ -4,7 +4,7 @@ import { Col, Container, Row, Footer } from 'mdbreact';
 export default class CustomFooter extends Component {
     render(){
         return(
-            <Footer color="blue" className="font-small pt-0">
+            <Footer color="blue" className="font-small pt-0 mt-5">
                 <Container>
                     <Row className="pt-5 mb-3 text-center d-flex justify-content-center">
                         <Col md="2" className="b-3">

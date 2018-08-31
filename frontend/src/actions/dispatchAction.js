@@ -4,7 +4,7 @@ module.exports = function(type, dispatch) {
 	this.dispatch = dispatch;
 	this.setType = (type) => {
 		this.type = type;
-	}
+	};
 	this.request = () => {
 		dispatch({type: this.type})
 	};
@@ -17,8 +17,9 @@ module.exports = function(type, dispatch) {
 				data: data[0] ? data[0] : data
 			}
 		})
-	}
+	};
 	this.loadingFailed = (error) => {
+		console.log(error);
 		this.dispatch({
 			type: this.type,
 			payload: {
@@ -27,6 +28,6 @@ module.exports = function(type, dispatch) {
 			}
 		})
 	}
-}
+};
 
 
