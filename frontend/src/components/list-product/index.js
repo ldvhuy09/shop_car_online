@@ -35,13 +35,13 @@ export default class ListProduct extends Component {
 
     return(
       <div className='list-products'>
-      <h4 className="h4-responsive ">{this.props.title}</h4>
-          <section className="text-center my-2">
-            <Row>
-              {listCars}
-            </Row>
-          </section>
-    </div>
+        <h4 className="h4-responsive ">{this.props.title}</h4>
+        <section className="text-center my-2">
+          <Row>
+            {listCars}
+          </Row>
+        </section>
+      </div>
     );
   };
 }

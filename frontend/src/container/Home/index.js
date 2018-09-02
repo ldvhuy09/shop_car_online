@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MenuAction from '../../actions/menuAction';
+import CategoryAction from '../../actions/categoryAction';
 import ProductAction from '../../actions/productAction';
 import CustomMenu from '../../components/menu';
 import CustomCarousel from '../../components/carousel';
@@ -15,7 +15,8 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchMenu();
+    this.props.fetchTypes();
+    this.props.fetchBrands();
     this.props.fetchTopsCar();
   }
 
@@ -25,7 +26,10 @@ class Home extends Component {
         <div className='container'>
           <div id="menu-vs-slider" className='row'>
             <div className='col-md-2'>
-              <CustomMenu menu={this.props.menu}/>
+              <CustomMenu menu={{
+                types: this.props.types,
+                brands: this.props.brands
+              }}/>
             </div>
             <div className='col-md-10'>
               <CustomCarousel/>
@@ -64,14 +68,16 @@ class Home extends Component {
 
 
 const mapStateToProp = (state) => ({
-  menu: state.HomeReducer.menu,
+  types: state.CategoryReducer.types,
+  brands: state.CategoryReducer.brands,
   topSellerCars: state.HomeReducer.topSellerCars,
   topViewCars: state.HomeReducer.topViewCars,
   topNewCars: state.HomeReducer.topNewCars
 })
 
 const mapDispatchToProp = dispatch => ({
-  fetchMenu: () => dispatch(MenuAction.fetchMenu()),
+  fetchTypes: () => dispatch(CategoryAction.fetchTypes()),
+  fetchBrands: () => dispatch(CategoryAction.fetchBrands()),
   fetchTopsCar: () => dispatch(ProductAction.fetchTops()),
   fetchDetail: (idCar) => dispatch(ProductAction.fetchDetail(idCar))
 });

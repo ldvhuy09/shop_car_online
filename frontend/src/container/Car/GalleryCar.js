@@ -5,7 +5,7 @@ import { PAGE_DEFAULT, SIZE_PER_PAGE_DEFAULT } from '../../constants/api';
 import ListProduct from '../../components/list-product';
 import Pagination from '../../components/pagination';
 import ProductAction from '../../actions/productAction';
-import MenuAction from "../../actions/menuAction";
+import CategoryAction from '../../actions/categoryAction';
 
 class GalleryCar extends Component {
   constructor(props) {
@@ -14,7 +14,8 @@ class GalleryCar extends Component {
   }
 
   componentWillMount() {
-  	this.props.fetchMenu();
+    this.props.fetchTypes();
+    this.props.fetchBrands();
   	this.paramsOfUrl = this.parseUrl();
 	  this.props.fetchCars(
 		  this.paramsOfUrl.field,
@@ -45,7 +46,10 @@ class GalleryCar extends Component {
         <div className='container'>
           <div className='row'>
             <div className='col-md-3'>
-              <CustomMenu activedItem={this.paramsOfUrl.value} menu={this.props.menu}/>
+              <CustomMenu activedItem={this.paramsOfUrl.value} menu={{
+                types: this.props.types,
+                brands: this.props.brands
+              }}/>
             </div>
             <div className='col-md-9'>
               <ListProduct 
@@ -69,7 +73,8 @@ class GalleryCar extends Component {
 }
 
 const mapStateToProp = (state) => ({
-  menu: state.HomeReducer.menu,
+  types: state.CategoryReducer.types,
+  brands: state.CategoryReducer.brands,
   cars: state.GalleryCarReducer.cars,
   totalPages: state.GalleryCarReducer.totalPages,
   page: state.GalleryCarReducer.page
@@ -78,7 +83,8 @@ const mapStateToProp = (state) => ({
 const mapDispatchToProp = dispatch => ({
   fetchCars: (field, value, sizePerPage = SIZE_PER_PAGE_DEFAULT, page = PAGE_DEFAULT) =>
     dispatch(ProductAction.fetchGalleryCar(field, value, sizePerPage, page)),
-  fetchMenu: () => dispatch(MenuAction.fetchMenu()),
+  fetchTypes: () => dispatch(CategoryAction.fetchTypes()),
+  fetchBrands: () => dispatch(CategoryAction.fetchBrands()),
 });
 
 export default connect(mapStateToProp, mapDispatchToProp)(GalleryCar);

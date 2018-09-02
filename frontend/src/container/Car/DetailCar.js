@@ -4,7 +4,7 @@ import ListProduct from '../../components/list-product';
 import DetailInforProduct from './components/detailInfor';
 import CustomMenu from '../../components/menu';
 import ProductAction from '../../actions/productAction';
-import MenuAction from "../../actions/menuAction";
+import CategoryAction from '../../actions/categoryAction';
 
 
 class DetailCar extends Component {
@@ -15,7 +15,8 @@ class DetailCar extends Component {
   componentWillMount() {
     let idCar = this.props.match.params.id;
     this.props.fetchDetail(idCar);
-    this.props.fetchMenu();
+    this.props.fetchTypes();
+    this.props.fetchBrands();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,7 +45,10 @@ class DetailCar extends Component {
         <div className='container'>
           <div className='row'>
             <div className='col-lg-3'>
-              <CustomMenu menu={this.props.menu}/>
+              <CustomMenu menu={{
+                types: this.props.types,
+                brands: this.props.brands
+              }}/>
             </div>
             <div className='col-lg-9'>
 	            <div className='row'>
@@ -76,7 +80,8 @@ class DetailCar extends Component {
 const mapStateToProp = (state) => ({
   sameTypeCars: state.DetailCarReducer.sameTypeCars,
   sameBrandCars: state.DetailCarReducer.sameBrandCars,
-  menu: state.HomeReducer.menu,
+  types: state.CategoryReducer.types,
+  brands: state.CategoryReducer.brands,
   car: state.DetailCarReducer.car,
 });
 
@@ -84,7 +89,8 @@ const mapDispatchToProp = dispatch => ({
   fetchSameTypeCars: (value, idCar) => dispatch(ProductAction.fetchSameTypeCars(value, idCar)),
   fetchSameBrandCars: (value, idCar) => dispatch(ProductAction.fetchSameBrandCars(value, idCar)),
   fetchDetail: (idCar) => dispatch(ProductAction.fetchDetail(idCar)),
-  fetchMenu: () => dispatch(MenuAction.fetchMenu()),
+  fetchTypes: () => dispatch(CategoryAction.fetchTypes()),
+  fetchBrands: () => dispatch(CategoryAction.fetchBrands()),
 });
 
 export default connect(mapStateToProp, mapDispatchToProp)(DetailCar);
