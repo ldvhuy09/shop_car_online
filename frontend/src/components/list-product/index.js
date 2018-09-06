@@ -21,7 +21,7 @@ export default class ListProduct extends Component {
 		          <CardBody cascade className="text-center">
 			          <h5>{car.type}</h5>
 			          <CardTitle className='mb-1'>
-				          <strong><a href="">{car.name}</a></strong>
+				          <strong>{car.name}</strong>
 			          </CardTitle>
 			          <div href="" className="red-text mt-1">
 				          <NumberFormat value={car.price} displayType={'text'} thousandSeparator={true}/> VNĐ

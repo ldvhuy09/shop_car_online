@@ -1,14 +1,23 @@
 import {
-  SELECT_OPTION
+  ON_SUBMIT,
+  SELECT_OPTION,
+  REQUEST_SEARCH_CARS,
+  RECEIVE_SEARCH_CARS
 } from '../constants/action';
 
 const stateInit = {
-  type: '',
-  brand: '',
-  fromDate: '',
-  toDate: '',
-  minPrice: 0,
-  maxPrice: 1000000000
+  form: {
+    type: '',
+    brand: '',
+    fromDate: '',
+    toDate: '',
+    minPrice: 0,
+  },
+  result: {
+    cars: null,
+    page: 0,
+    totalPages: 0,
+  },
 }
 
 const SearchFormReducer = (state = stateInit, action) => {
@@ -16,9 +25,34 @@ const SearchFormReducer = (state = stateInit, action) => {
     case SELECT_OPTION:
       return {
         ...state,
-        [action.payload.field]: action.payload.value
-      }  
+        form: {
+          ...state.form,
+          [action.payload.field]: action.payload.value
+        }
+      }
+
+    case REQUEST_SEARCH_CARS: 
+      return {
+        ...state,
+        result: {
+          ...state.result,
+          cars: [],
+        }
+      }
+      
+    case RECEIVE_SEARCH_CARS:
+      return {
+        ...state,
+        result: {
+          ...state.result,
+          cars: action.payload.data.cars,
+          page: action.payload.data.page,
+          totalPages: action.payload.data.totalPages,
+        }
+      }
     default:
       return state;
   }
 }
+
+export default SearchFormReducer;

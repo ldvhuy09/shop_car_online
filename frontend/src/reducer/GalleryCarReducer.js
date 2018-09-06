@@ -4,7 +4,9 @@ import {
 } from '../constants/action';
 
 const stateInit = {
-	cars: []
+  cars: [],
+  page: 0,
+  totalPages: 0,
 };
 
 const GalleryCarReducer = (state = stateInit, action) => {

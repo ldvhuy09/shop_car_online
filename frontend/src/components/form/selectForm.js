@@ -7,7 +7,7 @@ class SelectForm extends Component {
   }
   
   handleSelectOption = (event) => {
-    //this.props.selectOption(this.props.field, event.target.value);
+    this.props.selectOption(this.props.field, event.target.value);
   }
 
 	render() {
@@ -16,7 +16,9 @@ class SelectForm extends Component {
     )) : [];
 		return (
 			<div className="form-group">
+        <label>{this.props.label}</label>
         <select className="custom-select browser-default" onChange={this.handleSelectOption}>
+          <option value=''></option>
           {options}
         </select>
       </div>

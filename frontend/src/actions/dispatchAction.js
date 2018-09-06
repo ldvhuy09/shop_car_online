@@ -19,7 +19,6 @@ module.exports = function(type, dispatch) {
 		})
 	};
 	this.loadingFailed = (error) => {
-		console.log(error);
 		this.dispatch({
 			type: this.type,
 			payload: {

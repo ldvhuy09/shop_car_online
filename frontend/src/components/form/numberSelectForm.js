@@ -14,7 +14,7 @@ class NumberSelectForm extends Component {
   listOptions(options) {
     return options.map((option, key) => (
       <option value={option} key={key}>
-        <NumberFormat value={option} displayType={'text'} thousandSeparator={true}/>
+        <NumberFormat value={option / this.props.unit} displayType={'text'} thousandSeparator={true}/>
       </option>
     ))
   }
@@ -23,7 +23,9 @@ class NumberSelectForm extends Component {
     let options = this.listOptions(this.props.options);
 		return (
 			<div className="form-group">
+        <label>{this.props.label}</label>
         <select className="custom-select browser-default" onChange={this.handleSelectOption}>
+          <option value=''></option>
           {options}
         </select>
       </div>

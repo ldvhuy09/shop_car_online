@@ -116,3 +116,7 @@ body {
 .card.card-ecommerce:hover {
   box-shadow: 0 2px 10px #4285f4, 0 2px 10px #4285f4 !important;
 }
+
+.center-horizontal {
+  margin: 5px auto !important;
+};

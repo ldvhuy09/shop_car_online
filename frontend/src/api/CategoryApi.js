@@ -1,14 +1,12 @@
-import { SERVER_BASE_URL, API_VER } from '../constants/config';
 import {fetchApi} from './utils';
+import ApiBuilder from './apiBuilder';
 
-const apiFetchCategories = (field) => {
-  return `${SERVER_BASE_URL}/${API_VER}/categories/${field}`;
-}
+const apiBuilder = new ApiBuilder();
 
 const CategoryApi = {
 	fetch: (field) => {
 		return new Promise((resolve, reject) => {
-			fetchApi(apiFetchCategories(field)).then(response => {
+			fetchApi(apiBuilder.categoryApi().with(field).build()).then(response => {
         resolve(response)
       }, error => {reject(error)});
 		})
