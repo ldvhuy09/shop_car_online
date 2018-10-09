@@ -6,7 +6,7 @@ class FormValidator {
   }
 
   validate(state) {
-    let validation = this.valid();
+    let validation = state.validation;
 
     this.validations.forEach(rule => {
 
@@ -19,10 +19,7 @@ class FormValidator {
               rule.method;
         if(validation_method(field_value, ...args, state) !== rule.validWhen) {
           console.log("hello sai roi");
-
           validation[rule.field] = { isInvalid: true, message: rule.message }
-          validation.isValid = false;
-          console.log(validation);
         }
       }
     });

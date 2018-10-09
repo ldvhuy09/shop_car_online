@@ -6,13 +6,6 @@ import {
 } from '../constants/action';
 
 const stateInit = {
-  form: {
-    type: '',
-    brand: '',
-    fromDate: '',
-    toDate: '',
-    minPrice: 0,
-  },
   result: {
     cars: null,
     page: 0,
@@ -22,15 +15,6 @@ const stateInit = {
 
 const SearchFormReducer = (state = stateInit, action) => {
   switch (action.type) {
-    case SELECT_OPTION:
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          [action.payload.field]: action.payload.value
-        }
-      }
-
     case REQUEST_SEARCH_CARS: 
       return {
         ...state,

@@ -7,8 +7,8 @@ class NumberSelectForm extends Component {
 
   }
   
-  handleSelectOption = (event) => {
-    this.props.selectOption(this.props.field, event.target.value);
+  handleinputValue = (event) => {
+    this.props.inputValue(this.props.field, event.target.value);
   }
 
   listOptions(options) {
@@ -24,7 +24,7 @@ class NumberSelectForm extends Component {
 		return (
 			<div className="form-group">
         <label>{this.props.label}</label>
-        <select className="custom-select browser-default" onChange={this.handleSelectOption}>
+        <select className="custom-select browser-default" onChange={this.handleinputValue}>
           <option value=''></option>
           {options}
         </select>

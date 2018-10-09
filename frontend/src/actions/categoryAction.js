@@ -13,7 +13,7 @@ var CategoryAction = {
 			sendToStore(dispatch,
         REQUEST_TYPES, 
         RECEIVE_TYPES, 
-				CategoryApi.fetch('types')
+				CategoryApi.fetch('type')
 			)
 		}
 	},
@@ -22,7 +22,7 @@ var CategoryAction = {
 			sendToStore(dispatch,
         REQUEST_BRANDS,
         RECEIVE_BRANDS, 
-				CategoryApi.fetch('brands')
+				CategoryApi.fetch('brand')
 			)
 		}
 	}

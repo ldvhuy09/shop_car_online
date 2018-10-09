@@ -36,9 +36,7 @@ class Search extends Component {
           <div className="row mb-3">
             <SearchForm types={this.props.types}
               brands={this.props.brands}
-              selectOption={this.props.selectOption}
               onSearch={this.props.onSearch}
-              form={this.props.form}
             />
           </div>
           <div className="row">
@@ -53,15 +51,13 @@ class Search extends Component {
 const mapStateToProp = (state) => ({
   types: state.CategoryReducer.types,
   brands: state.CategoryReducer.brands,
-  form: state.SearchFormReducer.form,
   result: state.SearchFormReducer.result,
 });
 
 const mapDispatchToProp = (dispatch) => ({
   fetchTypes: () => dispatch(CategoryAction.fetchTypes()),
   fetchBrands: () => dispatch(CategoryAction.fetchBrands()),
-  selectOption: (field, value) =>dispatch(SearchAction.selectOption(field, value)),
-  onSearch: (form, page) => dispatch(SearchAction.onSearch(form, page))
+  onSearch: (queryObj) => dispatch(SearchAction.onSearch(queryObj))
 });
 
 export default connect(mapStateToProp, mapDispatchToProp)(Search);

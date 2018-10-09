@@ -42,23 +42,23 @@ body {
   margin-top: 100px!important;
 }
 
-#menu-categories {
+.menu-categories {
   font-size: 1em;
   font-weight: 1.5em;
 }
 
-#menu-categories .list-group-item-action:hover {
+.menu-categories .list-group-item-action:hover {
   background-color: #33b5e5;
   color: white;
   font-weight: bold;
 }
 
-#menu-categories .list-group-item-action {
+.menu-categories .list-group-item-action {
   padding-left: 1.75em !important;
 }
 
-#menu-categories .active {
-  background-color: #33b5e5;
+.menu-categories .active {
+  background-color: #33b5e5 !important;
   font-weight: bold;
 }
 
@@ -120,3 +120,11 @@ body {
 .center-horizontal {
   margin: 5px auto !important;
 };
+
+.trans-bg {
+  background: transparent !important;
+}
+
+.text-capitalize {
+  text-transform: capitalize !important;
+}

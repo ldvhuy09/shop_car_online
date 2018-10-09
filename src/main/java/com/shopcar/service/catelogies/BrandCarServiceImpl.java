@@ -1,4 +1,4 @@
-package com.shopcar.service.catelogies.impl;
+package com.shopcar.service.catelogies;
 
 import com.shopcar.model.BrandCar;
 import com.shopcar.repository.BrandCarRepository;

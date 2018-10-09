@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-//<a className="page-link" href={'./&page='+page}>{page}</a>
+
 export default class Pagination extends Component {
 	constructor(props) {
 		super(props);
@@ -23,11 +23,11 @@ export default class Pagination extends Component {
 	}
 
 	handleClickPage = (page) => {
-		this.props.fetchCars(
-			this.props.field,
-			this.props.value,
-			this.props.size,
-			page);
+		this.props.fetchCars({
+      [this.props.field]: this.props.value,
+      size: this.props.size,
+      page: page
+    });
 	};
 
 	render() {

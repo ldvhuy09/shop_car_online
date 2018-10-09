@@ -45,7 +45,7 @@ export default class SignupForm extends React.Component  {
         message: 'Mật khẩu xác nhận chưa khớp'
       }
     ]);
-      this.state = {
+    this.state = {
       name: '',
       email: '',
       password: '',
@@ -61,21 +61,24 @@ export default class SignupForm extends React.Component  {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    this.validate(event.target.name);
+    this.validate();
     this.sendWarningForFormInvalid(event.target);
   };
 
-  validate = (field) =>{
+  validate = () =>{
     var validation = this.validator.validate(this.state);
     this.setState({ validation });
   };
 
   sendWarningForFormInvalid = (target) => {
-    for (var field in this.state.validation) {
-      if (this.state.validation[field].isInvalid)
-        target.className = 'form-control is-invalid';
-      else target.className = 'form-control is-valid';
-    }
+    // for (var field in this.state.validation) {
+    //   if (this.state.validation[field].isInvalid)
+    //     target.className = 'form-control is-invalid';
+    //   else target.className = 'form-control is-valid';
+    // }
+    if (this.state.validation[target.name].isInvalid)
+      target.className = 'form-control is-invalid';
+    else target.className = 'form-control is-valid';
   };
 
   handleFormSubmit = event => {
@@ -86,9 +89,11 @@ export default class SignupForm extends React.Component  {
   };
 
   render() {
-    let validation = this.submitted ?
-                    this.validator.validate(this.state) :  
-                    this.state.validation;
+    // let validation = this.submitted ?
+    //                 this.validator.validate(this.state) :  
+    //                 this.state.validation;
+    console.log('state', this.state);
+    let validation = this.validator.validate(this.state);
     return(
       <Container>
         <form className='needs-validation' onSubmit={this.handleFormSubmit} noValidate>
@@ -119,16 +124,5 @@ export default class SignupForm extends React.Component  {
   }
 };
 
-// <Container>
-//   <form>
-//     <div className="grey-text">
-//       <div className
-//     </div>
-//   </form>
-// </Container>
 
-// <Input name='name' label="Tên của bạn" icon="user" group type="text" validate error="wrong" success="right" onChange={this.handleInputChange}/>
-// <Input name='email' label="Email của bạn" icon="envelope" group type="email" validate error="wrong" success="right" onChange={this.handleInputChange}/>
-// <Input name='password' label="Mật khẩu" icon="lock" group type="password" validate onChange={this.handleInputChange}/>
-// <Input name='confirmPass' label="Xác nhận mật khẩu" icon="exclamation-triangle" group type="password" validate error="wrong" success="right" onChange={this.handleInputChange}/>
 

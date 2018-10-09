@@ -1,13 +1,13 @@
 package com.shopcar.specification;
 
-public class SearchCriteria {
+public class QueryCriteria {
     private String key;
     private String operator;
     private Object value;
 
-    public SearchCriteria() {};
+    public QueryCriteria() {};
 
-    public SearchCriteria(String key, String operator, Object value) {
+    public QueryCriteria(String key, String operator, Object value) {
         this.key = key;
         this.operator = operator;
         this.value = value;

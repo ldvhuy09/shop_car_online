@@ -15,7 +15,7 @@ export default class DateForm extends Component {
     let year = date._d.getFullYear();
     let month = date._d.getMonth() + 1;
     let day = date._d.getDay();
-    this.props.selectOption(this.props.field, `${year}-${month}-${day}`);
+    this.props.inputValue(this.props.field, `${year}-${month}-${day}`);
     this.setState({
       startDate: date
     })

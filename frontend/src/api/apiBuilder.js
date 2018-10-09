@@ -1,5 +1,6 @@
 import { SERVER_BASE_URL, API_VER } from '../constants/config';
 import { PAGE_DEFAULT, SIZE_PER_PAGE_DEFAULT} from '../constants/api';
+const QueryStringBuilder = require('query-string');
 
 const BASE_URL_API = `${SERVER_BASE_URL}/${API_VER}`;
 
@@ -95,21 +96,65 @@ var AdvanceSearchApiBuilder = function() {
   }
 }
 
+var AuthenticationApiBuilder = function() {
+  this.query = `${BASE_URL_API}/auth/`;
+  this.field = '' ;
+  this.withLogin = () => {
+    this.field = 'login';
+    return this;
+  }
+  this.withSignUp = () => {
+    this.field = 'signup';
+    return this;
+  }
+  this.build = () => {
+    return `${this.query}${this.field}`;
+  }
+}
+
+var OrderApi = function() {
+  this.query = `${BASE_URL_API}/order`;
+  this.field = "";
+  this.with
+}
+
+// var ApiBuilder = function() {
+//   this.categoryApi = () => {
+//     return new CategoryApiBuilder();
+//   }
+
+//   this.carsApi = () => {
+//     return  new CarsApiBuilder();
+//   }
+
+//   this.oneCarApi = () => {
+//     return new OneCarApiBuilder();
+//   }
+
+//   this.advanceSearchApi = () => {
+//     return new AdvanceSearchApiBuilder();
+//   }
+  
+//   this.authenticationApi = () => {
+//     return new AuthenticationApiBuilder();
+//   }
+// }
+
 var ApiBuilder = function() {
-  this.categoryApi = () => {
-    return new CategoryApiBuilder();
-  }
-
-  this.carsApi = () => {
-    return  new CarsApiBuilder();
-  }
-
-  this.oneCarApi = () => {
-    return new OneCarApiBuilder();
-  }
-
-  this.advanceSearchApi = () => {
-    return new AdvanceSearchApiBuilder();
+  this.baseUrl = BASE_URL_API;
+  this.pathUrl = "";
+  this.queryObj = {};
+  this.path = (path) => {
+    this.pathUrl = path;
+    return this;
+  };
+  this.query = (query) => {
+    this.queryObj = query;
+    return this;
+  };
+  this.build = () => {
+    let queryString = QueryStringBuilder.stringify(this.queryObj);
+    return `${this.baseUrl}/${this.pathUrl}?${queryString}`;
   }
 }
 

@@ -42,7 +42,12 @@ const ProductAction = {
       sendToStore(dispatch, 
         REQUEST_SAME_TYPE_CARS,
         RECEIVE_SAME_TYPE_CARS,
-        ProductApi.fetchBy('type', value, SIZE_PER_PAGE_DEFAULT_SAME_CATEGORY, PAGE_DEFAULT, exceptId)
+        ProductApi.search({
+          type: value,
+          size: SIZE_PER_PAGE_DEFAULT_SAME_CATEGORY,
+          page: PAGE_DEFAULT,
+          id: `!${exceptId}`
+        })
       );
     }
   },
@@ -52,17 +57,22 @@ const ProductAction = {
       sendToStore(dispatch, 
         REQUEST_SAME_BRAND_CARS,
         RECEIVE_SAME_BRAND_CARS,
-        ProductApi.fetchBy('brand', value, SIZE_PER_PAGE_DEFAULT_SAME_CATEGORY, PAGE_DEFAULT, exceptId)
+        ProductApi.search({
+          brand: value,
+          size: SIZE_PER_PAGE_DEFAULT_SAME_CATEGORY,
+          page: PAGE_DEFAULT,
+          id: `!${exceptId}`
+        })
       );
     }
   },
 
-  fetchGalleryCar: (field, value, size = SIZE_PER_PAGE_DEFAULT, page = PAGE_DEFAULT) => {
+  fetchGalleryCar: (queryObj) => {
     return (dispatch) => {
       sendToStore(dispatch,
         REQUEST_GALLERY_CAR,
         RECEIVE_GALLERY_CAR,
-        ProductApi.fetchBy(field, value, size, page)
+        ProductApi.search(queryObj)
         )
     }
   }

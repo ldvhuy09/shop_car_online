@@ -21,8 +21,7 @@ public class Car {
     @ManyToOne(fetch = FetchType.EAGER)
     private TypeCar type;
 
-    @OneToOne(targetEntity = BrandCar.class
-            , fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private BrandCar brand;
 
     @Column(name = "origin")
@@ -103,6 +102,10 @@ public class Car {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void addQuantity(int removedQuantity) {
+        this.quantity += removedQuantity;
     }
 
     public int getNumOfSales() {

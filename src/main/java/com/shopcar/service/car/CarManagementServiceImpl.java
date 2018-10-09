@@ -1,4 +1,4 @@
-package com.shopcar.service.car.impl;
+package com.shopcar.service.car;
 
 
 import com.shopcar.model.Car;
@@ -9,12 +9,14 @@ import com.shopcar.repository.CarRepository;
 import com.shopcar.repository.TypeCarRepository;
 import com.shopcar.service.car.CarManagementService;
 import com.shopcar.specification.CarSpecificationBuilder;
+import com.shopcar.specification.QueryCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,5 +67,21 @@ public class CarManagementServiceImpl implements CarManagementService {
         Specification<Car> spec = builder.build();
         Page<Car> cars = carRepository.findAll(spec, pageable);
         return cars.map(this::getGeneralInfor);
+    }
+
+    @Override
+    public Page<CarGeneralInfor> search(List<QueryCriteria> queries, Pageable pageable) {
+        Specification<Car> spec = buildSpecification(queries);
+        Page<Car> cars = carRepository.findAll(spec, pageable);
+        return cars.map(this::getGeneralInfor);
+    }
+
+    private Specification<Car> buildSpecification(List<QueryCriteria> queries) {
+        CarSpecificationBuilder builder = new CarSpecificationBuilder();
+        for (QueryCriteria query : queries) {
+            builder.with(query);
+        }
+        Specification<Car> spec = builder.build();
+        return spec;
     }
 }

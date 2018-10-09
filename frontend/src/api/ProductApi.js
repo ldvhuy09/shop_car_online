@@ -9,12 +9,21 @@ const apiBuilder = new ApiBuilder();
 const ProductApi = {
 	fetchTops: () => {
 		return new Promise((resolve, reject) => {
-			let data = {};
+      let data = {};
 
 			let fetches = [
-        fetchApi(apiBuilder.carsApi().setSize(8).setSort("numOfViews").build()),
-        fetchApi(apiBuilder.carsApi().setSize(8).setSort("numOfSales").build()),
-        fetchApi(apiBuilder.carsApi().setSize(8).setSort("storeDate").build()),
+        fetchApi(apiBuilder.path('cars').query({
+          size: 8,
+          sort: 'numOfViews,DESC'
+        }).build()),
+        fetchApi(apiBuilder.path('cars').query({
+          size: 8,
+          sort: 'numOfSales,DESC'
+        }).build()),
+        fetchApi(apiBuilder.path('cars').query({
+          size: 8,
+          sort: "storeDate"
+        }).build()),
       ];
 
 			Promise.all(fetches).then(responses => {
@@ -26,11 +35,11 @@ const ProductApi = {
 		})
 	},
 
-	fetchOne: (idCar) => {
+	fetchOne: (carId) => {
 		return new Promise((resolve, reject) => {
 			let data = {};
 
-			fetchApi(apiBuilder.oneCarApi().with(idCar).build()).then(response => {
+			fetchApi(apiBuilder.path(`cars/${carId}`).build()).then(response => {
 				data.car = response;
 				resolve(data);
 			}, error => {reject(error)});
@@ -80,6 +89,24 @@ const ProductApi = {
         data.page = 1 + response.number;
         resolve(data);
       }, error => {reject(error)})
+    })
+  },
+  search: (queryObj) => {
+    return new Promise((resolve, reject) => {
+      let data = {
+        cars: [],
+	      totalPages: 0,
+				page: 0,
+      }
+      fetchApi(apiBuilder
+        .path('cars/search')
+        .query(queryObj)
+        .build()).then(response => {
+          data.cars = response.content;
+          data.totalPages = response.totalPages;
+          data.page = 1 + response.number;
+          resolve(data);
+        }, error => {reject(error)})
     })
   }
 };

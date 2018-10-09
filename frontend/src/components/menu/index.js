@@ -25,7 +25,7 @@ export default class CustomMenu extends Component {
 
 		return (
 			<div>
-				<ListGroup id='menu-categories'>
+				<ListGroup className='menu-categories'>
           <ListGroupItem href="#" disable><i className='fa fa-bars'></i> Danh muc xe</ListGroupItem>
           <ListGroupItem href="#" disable><strong><i className='fa fa-angle-right'></i> Các loại xe</strong></ListGroupItem>
           {listTypes}

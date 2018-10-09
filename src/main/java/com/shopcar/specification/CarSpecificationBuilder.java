@@ -9,14 +9,19 @@ import java.util.List;
 
 @Component
 public class CarSpecificationBuilder {
-    private List<SearchCriteria> params;
+    private List<QueryCriteria> params;
 
     public CarSpecificationBuilder() {
-        params = new ArrayList<SearchCriteria>();
+        params = new ArrayList<QueryCriteria>();
+    }
+
+    public CarSpecificationBuilder with(QueryCriteria query) {
+        params.add(query);
+        return this;
     }
 
     public CarSpecificationBuilder with(String key, String operation, Object value) {
-        params.add(new SearchCriteria(key, operation, value));
+        params.add(new QueryCriteria(key, operation, value));
         return this;
     }
 

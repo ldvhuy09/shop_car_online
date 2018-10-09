@@ -1,10 +1,9 @@
-package com.shopcar.service.catelogies.impl;
+package com.shopcar.service.catelogies;
 
 import com.shopcar.model.TypeCar;
-import com.shopcar.repository.TypeCarRepository;
-import com.shopcar.service.catelogies.TypeCarService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.shopcar.repository.TypeCarRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
